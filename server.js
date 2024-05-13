@@ -1,7 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
-const connectDB = require('./mongo'); // Assuming connectDB is a function to connect to MongoDB defined in mongo.js
-require('dotenv').config(); // Load environment variables from .env file
+const connectDB = require('./mongo'); 
+require('dotenv').config(); 
 
 const app = express();
 app.use(express.json());
@@ -14,9 +14,9 @@ app.get('/', (req, res) => {
     res.send("App is working fine");
 });
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 8080;
 
-connectDB(process.env.DATABASE_URI) // Passing MongoDB URI from the environment variables
+connectDB(process.env.DATABASE_URI) 
     .then(() => {
         console.log("Connected to MongoDB Database");
         app.listen(PORT, (error) => {
