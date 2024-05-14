@@ -1,11 +1,10 @@
 const express = require('express');
-const mongoose = require('mongoose');
-const connectDB = require('./mongo'); 
-require('dotenv').config(); 
+const connectDB = require('./mongo');
+const router = require('./routes/Route');
+require('dotenv').config();
 
 const app = express();
 app.use(express.json());
-
 app.get('/ping', (req, res) => {
     res.send('Pong!');
 });
@@ -13,10 +12,11 @@ app.get('/ping', (req, res) => {
 app.get('/', (req, res) => {
     res.send("App is working fine");
 });
+app.use('/route',router)
 
 const PORT = process.env.PORT || 8080;
 
-connectDB(process.env.DATABASE_URI) 
+connectDB()
     .then(() => {
         console.log("Connected to MongoDB Database");
         app.listen(PORT, (error) => {
