@@ -21,7 +21,7 @@ const data = new mongoose.Schema({
     Size: {
         type : String
     }
-})
+}) 
 
 const dataSet = mongoose.model("spacethings",data);
 

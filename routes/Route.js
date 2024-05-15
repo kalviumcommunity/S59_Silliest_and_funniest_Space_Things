@@ -7,7 +7,7 @@ require('dotenv').config()
 router.get('/space', async (req, res) => {
     try {
         const spaceData = await spaceThings.find();
-        res.json(spaceData)
+        res.json({ spaceData })
     } catch (err) {
         res.json({ error: " An Error occured while getting the data ." + err })
     }
@@ -30,14 +30,14 @@ router.patch('/:id', async (req, res) => {
 
 
 router.post('/add-space', async (req, res) => {
-    // const isValid = checkValidation(req.body, userSchema);
-    // if (!isValid) {
-    //     return res.status(400).json({ error: 'Invalid input data' });
-    // }
-    const newspace = new spaceThings(req.body);
+  
+    console.log(req.body)
+
 
     try {
+        const newspace = new spaceThings(req.body);
         const savespaceThings = await newspace.save();
+
         res.json(savespaceThings);
     } catch (err) {
         console.error('Error adding space:', err);
