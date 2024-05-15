@@ -2,17 +2,20 @@
   "name": "s59_silliest_and_funniest_space_things",
   "version": "1.0.0",
   "description": "Silliest_and_funniest_Space_Things\r 1) Top 10 Lists: Create lists of the silliest and funniest space phenomena, objects, or events. For example, \"Top 10 Ridiculous Space Discoveries\" or \"Top 10 Hilarious Astronaut Mishaps.\"",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon server.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "body-parser": "^1.20.2",
     "dotenv": "^16.4.5",
     "express": "^4.19.2",
     "mongodb": "^6.6.1",
-    "mongoose": "^8.3.4"
+    "mongoose": "^8.3.4",
+    "nodemon": "^3.1.0"
   }
 }

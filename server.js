@@ -1,20 +1,20 @@
 const express = require('express');
 const connectDB = require('./mongo');
 const router = require('./routes/Route');
+var bodyParser = require('body-parser')
 require('dotenv').config();
 
 const app = express();
-app.use(express.json());
-app.get('/ping', (req, res) => {
-    res.send('Pong!');
-});
+//app.use(bodyParser.json())
+app.use(express.json())
 
 app.get('/', (req, res) => {
     res.send("App is working fine");
 });
+
 app.use('/route',router)
 
-const PORT = process.env.PORT || 8080;
+const PORT = process.env.PORT || 8080
 
 connectDB()
     .then(() => {
