@@ -31,3 +31,5 @@ Silliest_and_funniest_Space_Things
 
 Render-Deployment-link:- https://s59-silliest-and-funniest-space-things.onrender.com/
 
+Cloudflare-Deployment-link:-  https://spacethings.pages.dev/
+
