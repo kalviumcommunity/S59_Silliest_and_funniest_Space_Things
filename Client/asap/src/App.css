@@ -13,13 +13,13 @@
 .hero-button {
   padding: 10px 20px;
   font-size: 1em;
-  color: rgb(0, 0, 0);
+  color: rgb(255, 255, 255);
   background-color: #ffffff;
-  background-color: chocolate;
+  background-color: red;
   border-radius: 5px;
   cursor: pointer;
 }
 
 .hero-button:hover {
-  background-color: #f12189;
+  background-color: #4b21f1;
 }
