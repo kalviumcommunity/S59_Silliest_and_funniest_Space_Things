@@ -1,6 +1,8 @@
-import React, { useState, useEffect } from 'react';
-import './space.css';
-import axios from 'axios';
+import React, { useState, useEffect } from "react";
+import "./space.css";
+import axios from "axios";
+import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import AddEntityForm from "./form"; // Correct import of AddEntityForm
 
 const FunnySpaceEntity = ({ entity }) => {
   return (
@@ -40,21 +42,46 @@ const App = () => {
 
   const fetchData = async () => {
     try {
-      const response = await axios.get('http://localhost:8080/route/space');
-      console.log(response.data.spaceData);
+      const response = await axios.get("http://localhost:8080/route/space");
       setEntities(response.data.spaceData);
     } catch (error) {
-      console.error('Error fetching data:', error);
+      console.error("Error fetching data:", error);
     }
   };
 
+  const handleEntityAdded = (newEntity) => {
+    setEntities([...entities, newEntity]);
+  };
+
   return (
-    <div>
-      <h1>Silliest and Funniest Space Things</h1>
-      {entities.map((entity, index) => (
-        <FunnySpaceEntity key={index} entity={entity} />
-      ))}
-    </div>
+    <Router>
+      <div>
+        <nav>
+          <ul>
+            <li><Link to="/">Home</Link></li>
+            <li><Link to="/add">Add Entity</Link></li>
+          </ul>
+        </nav>
+
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <>
+                <h1>Silliest and Funniest Space Things</h1>
+                {entities.map((entity, index) => (
+                  <FunnySpaceEntity key={index} entity={entity} />
+                ))}
+              </>
+            }
+          />
+          <Route
+            path="/add"
+            element={<AddEntityForm onEntityAdded={handleEntityAdded} />}
+          />
+        </Routes>
+      </div>
+    </Router>
   );
 };
 
