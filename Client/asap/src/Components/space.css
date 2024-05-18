@@ -1,146 +1,156 @@
-body, h1, h2, p, ul {
+body {
+  font-family: Arial, sans-serif;
+  background-color: #e1e1eb;
   margin: 0;
   padding: 0;
 }
 
-body {
-  font-family: 'Roboto', sans-serif;
-  background-color: #f9f9f9;
-  line-height: 1.6;
-}
-
-h1, h2 {
+h1 {
+  text-align: center;
   color: #333;
 }
 
-a {
-  text-decoration: none;
-  color: inherit;
-}
-
-.app-container {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-}
-
 nav {
-  background-color: #007bff;
-  padding: 1rem;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  background-color: #2f2bff;
+  padding: 10px 0;
 }
 
 nav ul {
-  list-style: none;
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
   display: flex;
   justify-content: center;
 }
 
 nav ul li {
-  margin: 0 1rem;
+  margin: 0 15px;
 }
 
 nav ul li a {
   color: white;
+  text-decoration: none;
   font-weight: bold;
-  transition: color 0.3s ease;
+  font-size: 18px;
 }
 
 nav ul li a:hover {
-  color: #ffdd57;
-}
-
-.content {
-  flex: 1;
-  padding: 2rem;
-  max-width: 1200px;
-  margin: 0 auto;
-}
-
-h1 {
-  text-align: center;
-  margin-bottom: 2rem;
-  font-size: 2.5rem;
-}
-
-.entity-list {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 1.5rem;
+  text-decoration: underline;
 }
 
 .container {
   background-color: white;
-  padding: 1.5rem;
+  border: 1px solid #ddd;
   border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.container:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  margin: 20px;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .title {
-  font-size: 1.5rem;
-  color: #007bff;
-  margin-bottom: 1rem;
-}
-
-.add-entity-form {
-  background: white;
-  padding: 2rem;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  max-width: 500px;
-  margin: 2rem auto;
-}
-
-.add-entity-form h2 {
-  margin-bottom: 1rem;
+  color: #3ec742;
   font-size: 24px;
+  margin-bottom: 10px;
+}
+
+p {
+  color: #1f0101;
+  margin: 8px 0;
+}
+
+p strong {
   color: #333;
-  text-align: center;
 }
 
-.form-group {
-  margin-bottom: 1rem;
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-.form-group label {
-  display: block;
-  margin-bottom: 0.5rem;
-  font-weight: bold;
-  color: #555;
-}
-
-.form-group input {
-  width: 100%;
-  padding: 0.5rem;
-  border: 1px solid #ccc;
+form input,
+form textarea {
+  width: 80%;
+  padding: 10px;
+  margin: 10px 0;
+  border: 1px solid #ddd;
   border-radius: 4px;
-  font-size: 16px;
-  transition: border-color 0.3s ease;
 }
 
-.form-group input:focus {
-  border-color: #007bff;
-  outline: none;
-}
-
-.form-group button {
-  width: 100%;
-  padding: 0.75rem;
+form button {
+  background-color: #4ebb51;
+  color: white;
+  padding: 10px 20px;
   border: none;
   border-radius: 4px;
-  background-color: #007bff;
-  color: white;
-  font-size: 16px;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  font-size: 16px;
 }
 
-.form-group button:hover {
-  background-color: #0056b3;
+form button:hover {
+  background-color: #45a049;
+}
+
+button.update-button,
+button.cancel-button,
+button.edit-button,
+button.delete-button {
+  margin: 5px;
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  border-radius: 5px;
+}
+
+.update-button {
+  background-color: #4CAF50;
+  color: white;
+}
+
+.update-button:hover {
+  background-color: #45a049;
+}
+
+.cancel-button {
+  background-color: #f44336;
+  color: white;
+}
+
+.cancel-button:hover {
+  background-color: #da190b;
+}
+
+.edit-button {
+  background-color: #008CBA;
+  color: white;
+}
+
+.edit-button:hover {
+  background-color: #007bb5;
+}
+
+.delete-button {
+  background-color: #3c0c08;
+  color: white;
+}
+
+.delete-button:hover {
+  background-color: #da190b;
+}
+
+h1 {
+  margin-top: 20px;
+}
+
+ul {
+  padding: 0;
+  list-style-type: none;
+}
+
+li {
+  margin: 10px 0;
 }
