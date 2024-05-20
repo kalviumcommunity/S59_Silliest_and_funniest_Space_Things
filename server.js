@@ -3,10 +3,12 @@ const connectDB = require('./mongo');
 const router = require('./routes/Route');
 var bodyParser = require('body-parser')
 const cors = require('cors')
+
+
 require('dotenv').config();
 
 const app = express();
-//app.use(bodyParser.json())
+
 app.use(express.json())
 app.use(cors())
 
