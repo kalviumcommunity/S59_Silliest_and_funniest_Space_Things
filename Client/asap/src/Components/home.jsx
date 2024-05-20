@@ -1,5 +1,6 @@
 import '../App.css';
-import React, { useState } from 'react';
+import React, { useState, } from 'react';
+import { Link } from 'react-router-dom';
 import Things from './spacethings';
 
 const Hero = () => {
@@ -12,6 +13,9 @@ const Hero = () => {
   return (
     <div className="hero">
       <h2>Welcome to the Silliest and Funniest Space Things</h2>
+      <button>
+         {<Link to= "/Logout">Logout</Link>} 
+      </button>
       <button onClick={handleClick} className="hero-button">
         {showThings ? 'Hide' : 'Explore More'}
       </button>
