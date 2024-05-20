@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import AddEntityForm from "./form";
 import FunnySpaceEntity from "./FunnySpaceEntity";
 import "./space.css";
@@ -26,48 +25,32 @@ const App = () => {
     setEntities([...entities, newEntity]);
   };
 
-  const handleEntityUpdated = (updatedEntity) => {
+  const handleEntityUpdated = () => {
     fetchData();
   };
 
-  const handleEntityDeleted = (id) => {
+  const handleEntityDeleted = () => {
     fetchData();
   };
 
   return (
-    <Router>
-      <div>
-        <nav>
-          <ul>
-            <li><Link to="/">Home</Link></li>
-            <li><Link to="/add">Add Entity</Link></li>
-          </ul>
-        </nav>
-
-        <Routes>
-          <Route
-            path="/"
-            element={
-              <>
-                <h1>Silliest and Funniest Space Things</h1>
-                {entities.map(entity => (
-                  <FunnySpaceEntity
-                    key={entity.id}
-                    entity={entity}
-                    onUpdate={handleEntityUpdated}
-                    onDelete={handleEntityDeleted}
-                  />
-                ))}
-              </>
-            }
-          />
-          <Route
-            path="/add"
-            element={<AddEntityForm onEntityAdded={handleEntityAdded} />}
-          />
-        </Routes>
-      </div>
-    </Router>
+    <div>
+      <nav>
+        <ul>
+          <li><a href="/">Home</a></li>
+          <li><a href="/add">Add Entity</a></li>
+        </ul>
+      </nav>
+      <h1>Silliest and Funniest Space Things</h1>
+      {entities.map(entity => (
+        <FunnySpaceEntity
+          key={entity.id}
+          entity={entity}
+          onUpdate={handleEntityUpdated}
+          onDelete={handleEntityDeleted}
+        />
+      ))}
+    </div>
   );
 };
 
