@@ -6,11 +6,27 @@ import './Login.css';
 const Login = () => {
   const navigate = useNavigate();
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     const email = event.target.elements['login-email'].value;
-    document.cookie = `userName=${email}; path=/`;
-    navigate('/home');
+    const password = event.target.elements['login-password'].value;
+
+    try {
+      const response = await fetch('http://localhost:8080/route/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password }),
+        credentials: 'include',
+      });
+      if (response.ok) {
+        navigate('/home');
+      } else {
+        console.error('Login failed');
+        alert('Either password or user name is wrong or You have not registered.');
+      }
+    } catch (err) {
+      console.error('An error occurred:', err);
+    }
   };
 
   return (
@@ -18,14 +34,14 @@ const Login = () => {
       <h2>Login</h2>
       <div className="input">
         <input type="text" id="login-email" required />
-        <label htmlFor="login-email">Username</label>
+        <label htmlFor="login-email">Email</label>
       </div>
       <div className="input">
         <input type="password" id="login-password" required />
         <label htmlFor="login-password">Password</label>
       </div>
       <p>
-        Not regestered ? {<Link to= "/register">Register</Link>} here
+        Not registered? <Link to="/register">Register</Link> here
       </p>
       <button type="submit" className="button">Login</button>
     </form>
@@ -35,9 +51,27 @@ const Login = () => {
 const Register = () => {
   const navigate = useNavigate();
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    navigate('/home');
+    const username = event.target.elements['register-username'].value;
+    const email = event.target.elements['register-email'].value;
+    const password = event.target.elements['register-password'].value;
+
+    try {
+      const response = await fetch('http://localhost:8080/route/register', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ username, email, password }),
+      });
+     
+      if (response.ok) {
+        navigate('/');
+      } else {
+        console.error('Registration failed');
+      }
+    } catch (err) {
+      console.error('An error occurred:', err);
+    }
   };
 
   return (
@@ -64,10 +98,10 @@ const Logout = () => {
   const navigate = useNavigate();
 
   React.useEffect(() => {
-    setTimeout(()=>{
-      document.cookie = 'email=; path=/; expires=Thu, 01 Jan 1970 00:00:00 UTC;';
+    setTimeout(() => {
+      document.cookie = 'token=; path=/; expires=Thu, 01 Jan 1970 00:00:00 UTC;';
       navigate('/');
-    },1000)
+    }, 1000);
   }, [navigate]);
 
   return (
