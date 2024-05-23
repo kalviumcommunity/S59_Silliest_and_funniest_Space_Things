@@ -10,9 +10,7 @@ const AddEntityForm = ({ onEntityAdded }) => {
     Description: '',
     Size: '',
     Color: '',
-    Shape: '',
-    Size: '',
-    funnyAttribute: '',
+    created_by: '',
     // appearance: '',
     // behavior: '',
     // sillyQuirk: '',
@@ -39,7 +37,8 @@ const AddEntityForm = ({ onEntityAdded }) => {
   };
 
   const handleSubmit = async (e) => {
-    if (!formData.Name || !formData.Description || !formData.Color || !formData.Size || !formData.Shape) {
+    console.log(formData)
+    if (!formData.Name || !formData.Description || !formData.Color || !formData.Size) {
         const missingField = !formData.Name ? 'name' :
                             !formData.Description ? 'description' :
                             !formData.Color ? 'color' :
@@ -51,9 +50,9 @@ const AddEntityForm = ({ onEntityAdded }) => {
     }
     e.preventDefault();
     try {
-      const response = await axios.post('http://localhost:8080/route/add-space', formData);
+      const response = await axios.post('http://localhost:8080/route/add-space',formData, {withCredentials: true});
       onEntityAdded(response.data);
-      navigate('/');
+      navigate('/home');
     } catch (error) {
       console.error('Error adding entity:', error);
     }

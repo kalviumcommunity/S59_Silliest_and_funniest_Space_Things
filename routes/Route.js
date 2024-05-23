@@ -1,6 +1,6 @@
 const express = require('express');
-const { User, SpaceThings } = require('../loginscema');
-const spaceThings = require('../schema.js');
+const { User } = require('../loginscema');
+const SpaceThings = require('../schema.js');
 const Joi = require('joi');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
@@ -12,10 +12,12 @@ const spaceSchema = Joi.object({
     Description: Joi.string().required(),
     Size: Joi.string().required(),
     Color: Joi.string().required(),
-    Shape: Joi.array().items(Joi.string()).required(),
+    Shape: Joi.array().items(Joi.string()),
+    created_by: Joi.array().items(Joi.string()),
 });
 
 const validateInput = (req, res, next) => {
+    console.log(req.body);
     const { error } = spaceSchema.validate(req.body, { abortEarly: false });
     if (error) {
         return res.status(400).json({ error: error.details.map(detail => detail.message) });
@@ -25,6 +27,7 @@ const validateInput = (req, res, next) => {
 
 const authenticate = (req, res, next) => {
     const token = req.cookies.token;
+    console.log(token);
     if (!token) return res.status(401).json({ error: 'Access denied. No token provided.' });
 
     try {
@@ -35,6 +38,26 @@ const authenticate = (req, res, next) => {
         res.status(400).json({ error: 'Invalid token.' });
     }
 };
+
+router.get('/users', async (req, res) => {
+    try {
+        const users = await User.find().select('username _id');
+        res.json({ users });
+    } catch (error) {
+        res.status(500).json({ error: 'Error fetching users' });
+    }
+});
+
+router.get('/user/:filter', async (req, res) => {
+    const user = req.params.filter;
+    try {
+        console.log(user);
+        const filteredInventions = await SpaceThings.find({ created_by: user });
+        res.json(filteredInventions);
+    } catch (error) {
+        res.status(500).json({ error: 'Error fetching filtered inventions' });
+    }
+});
 
 router.post('/register', async (req, res) => {
     const { username, email, password } = req.body;
@@ -64,8 +87,8 @@ router.post('/login', async (req, res) => {
     res.json({ message: 'Login successful' });
 });
 
-router.post('/logout', (req, res) => {
-    res.clearCookie('token');
+router.get('/logout', (req, res) => {
+    res.clearCookie('token', { path: '/' });
     res.json({ message: 'Logout successful' });
 });
 
@@ -78,7 +101,7 @@ router.get('/space', async (req, res) => {
     }
 });
 
-router.patch('/:id', authenticate, validateInput, async (req, res) => {
+router.patch('/:id', validateInput, async (req, res) => {
     try {
         const spaceFound = await SpaceThings.findByIdAndUpdate(req.params.id, req.body, { new: true });
         if (!spaceFound) {
@@ -90,8 +113,9 @@ router.patch('/:id', authenticate, validateInput, async (req, res) => {
     }
 });
 
-router.post('/add-space', authenticate, validateInput, async (req, res) => {
+router.post('/add-space', async (req, res) => {
     try {
+        console.log(req.body);
         const newSpace = new SpaceThings(req.body);
         const saveSpace = await newSpace.save();
         res.json(saveSpace);
@@ -101,8 +125,9 @@ router.post('/add-space', authenticate, validateInput, async (req, res) => {
     }
 });
 
-router.put('/:id', authenticate, validateInput, async (req, res) => {
+router.put('/:id', async (req, res) => {
     try {
+        console.log(req.body);
         const spaceFound = await SpaceThings.findByIdAndUpdate(req.params.id, req.body, { new: true });
         if (!spaceFound) {
             return res.status(404).json({ error: 'Space not found' });

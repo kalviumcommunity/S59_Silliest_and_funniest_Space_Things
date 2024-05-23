@@ -1,7 +1,8 @@
-import React from 'react';
+import React ,{useEffect}from 'react';
 import { BrowserRouter as Router, Route, Routes, useNavigate, Link } from 'react-router-dom';
 import Home from './home';
 import './Login.css';
+
 
 const Login = () => {
   const navigate = useNavigate();
@@ -94,15 +95,28 @@ const Register = () => {
   );
 };
 
+
+
 const Logout = () => {
   const navigate = useNavigate();
-  document.cookie = 'token=; path=/; expires=Thu, 01 Jan 1970 00:00:00 UTC;';
 
-  React.useEffect(() => {
-    setTimeout(() => {
-      document.cookie = 'token=; path=/; expires=Thu, 01 Jan 1970 00:00:00 UTC;';
-      navigate('/');
-    }, 1000);
+  useEffect(() => {
+    const logout = async () => {
+      try {
+        await fetch('/logout');
+
+      
+        document.cookie = 'token=; path=/; expires=Thu, 01 Jan 1970 00:00:00 UTC;';
+        
+        setTimeout(() => {
+          navigate('/');
+        }, 1000);
+      } catch (error) {
+        console.error('Logout failed:', error);
+      }
+    };
+
+    logout();
   }, [navigate]);
 
   return (
@@ -112,16 +126,22 @@ const Logout = () => {
   );
 };
 
+
+
+
+
+
 const Main = () => {
   return (
-    <Router>
+   
       <Routes>
         <Route path="/" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/home" element={<Home />} />
         <Route path="/logout" element={<Logout />} />
+        
+
       </Routes>
-    </Router>
   );
 };
 
